@@ -1,3 +1,10 @@
+.App {
+  /* padding-top gives 4 "rem" of space from the top */
+  padding-top: 4rem;
+  min-height: 100vh;
+}
+
+
 .navbar {
-  background-color: #ef5350 !important
+  background-color: #ef5350 !important;
 }
