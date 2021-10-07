@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import spinner from './spinner.gif';
+import { Link } from 'react-router-dom';
 
 const Sprite = styled.img`
     width: 5em;
@@ -14,7 +15,23 @@ const Card = styled.div`
     &:hover {
         box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); 
     }
+    -moz-user-select: none;
+    -website-user-select: none;
+    user-select: none;
+    -o-user-select: none;
 `;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    &:focus, 
+    &:hover,
+    &:visited,
+    &:link, 
+    &:active {
+        text-decoration: none;
+    }
+`
 
 export default class PokemonCard extends Component {
 
@@ -46,36 +63,38 @@ export default class PokemonCard extends Component {
             // column medium 3 says 12 / 3 = 4 cards in medium size mode
             // column small 6 says 12 / 6 = 2 cards in small size mode (like if they're on a phone)
             <div className='col-md-3 cold-sm-6 mb-5'>
-                <Card className="card">
-                    <h5 className="card-header">{this.state.pokemonIndex}</h5>
-                    {this.state.imageLoading ? (
-                        <img
-                            src={spinner}
-                            style={{ width: '5em', height: '5em' }}
-                            className="card-img-top rounded mx-auto d-block mt-2"></img>
-                    ) : null}
-                    <Sprite
-                        className="card-img-top rounded mx-auto nt-2"
-                        onLoad={() => this.setState({ imageLoading: false })}
-                        onError={() => this.setState({ tooManyReqs: true })}
-                        src={this.state.imageUrl}
-                        style={
-                            this.state.tooManyReqs ? { display: 'none' } :
-                                this.state.imageLoading ? null : { display: 'block' }
-                        }
-                    />
-                    {this.state.tooManyReqs ? (<h6 className="mx-auto">
-                        <span className="badge" badge-danger mt-2>Too Many Requests</span>
-                    </h6>) : null}
-                    <div className="card-body mx-auto">
-                        <h6 className="card-title">
-                            {this.state.name.split("-").map(str =>
-                                str.charAt(0).toUpperCase() + str.substring(1)
-                            ).join(" ")
+                <StyledLink to={`pokemon/${this.state.pokemonIndex}`}>    
+                    <Card className="card">
+                        <h5 className="card-header">{this.state.pokemonIndex}</h5>
+                        {this.state.imageLoading ? (
+                            <img
+                                src={spinner}
+                                style={{ width: '5em', height: '5em' }}
+                                className="card-img-top rounded mx-auto d-block mt-2"></img>
+                        ) : null}
+                        <Sprite
+                            className="card-img-top rounded mx-auto nt-2"
+                            onLoad={() => this.setState({ imageLoading: false })}
+                            onError={() => this.setState({ tooManyReqs: true })}
+                            src={this.state.imageUrl}
+                            style={
+                                this.state.tooManyReqs ? { display: 'none' } :
+                                    this.state.imageLoading ? null : { display: 'block' }
                             }
-                        </h6>
-                    </div>
-                </Card>
+                        />
+                        {this.state.tooManyReqs ? (<h6 className="mx-auto">
+                            <span className="badge" badge-danger mt-2>Too Many Requests</span>
+                        </h6>) : null}
+                        <div className="card-body mx-auto">
+                            <h6 className="card-title">
+                                {this.state.name.split("-").map(str =>
+                                    str.charAt(0).toUpperCase() + str.substring(1)
+                                ).join(" ")
+                                }
+                            </h6>
+                        </div>
+                    </Card>
+                </StyledLink>
             </div>
         )
     }
