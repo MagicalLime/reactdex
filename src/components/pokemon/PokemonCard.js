@@ -62,7 +62,7 @@ export default class PokemonCard extends Component {
         return (
             // column medium 3 says 12 / 3 = 4 cards in medium size mode
             // column small 6 says 12 / 6 = 2 cards in small size mode (like if they're on a phone)
-            <div className='col-md-3 cold-sm-6 mb-5'>
+            <div className='col-md-3 col-sm-6 mb-5'>
                 <StyledLink to={`pokemon/${this.state.pokemonIndex}`}>    
                     <Card className="card">
                         <h5 className="card-header">{this.state.pokemonIndex}</h5>
